@@ -4,24 +4,25 @@ services:
   app:
     container_name: testeContele
     build: .
+    command: npm start
     environment:
       DB_HOST: postgres
     ports:
       - 3000:3000
     depends_on:
       - postgres
-  
-  db:
+
+  postgres:
     image: postgres
-    container_name: testeContele
+    container_name: database
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: TestDeveloperFullStackContele
       PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
     ports:
       - "5432:5432"
     restart: unless-stopped
 
+volumes:
+  postgres:

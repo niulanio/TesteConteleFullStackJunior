@@ -24,7 +24,7 @@ module.exports = {
             }
             return res.status(200).json(usersList);
         } catch (error) {
-            return next(error.detail);
+            return next(new error.detail);
         }
     },
 
@@ -75,10 +75,10 @@ module.exports = {
     async deleteUsers(req, res, next) {
         try {
             await knex('users').del();
-            return res.status(200).send("Todos os usuários foram deletados!");
+            return res.status(200).send("All users have been deleted!");
         }
         catch (error) {
-            next(error);
+            next(error.detail);
         }
     },
 
@@ -86,10 +86,10 @@ module.exports = {
         const { id } = req.params;
         try {
             await knex('users').where({ id }).del();
-            return res.status(200).send("O usuário foi deletado!");
+            return res.status(200).send("User has been deleted!");
         }
         catch (error) {
-            next(error);
+            next(error.detail);
         }
     }
 
