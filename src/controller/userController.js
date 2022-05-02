@@ -24,7 +24,7 @@ module.exports = {
             }
             return res.status(200).json(usersList);
         } catch (error) {
-            return next(new error.detail);
+            return next(error.detail);
         }
     },
 

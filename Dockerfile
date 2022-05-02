@@ -9,6 +9,8 @@ RUN npm install
 
 COPY . .
 
+RUN apk add --no-cache bash
+
 EXPOSE 3000
 
-CMD npm start
+ENTRYPOINT [ "/entrypoint.sh" ]

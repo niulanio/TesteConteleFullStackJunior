@@ -4,25 +4,25 @@ services:
   app:
     container_name: testeContele
     build: .
-    command: npm start
+    entrypoint:
+      ./entrypoint.sh
     environment:
       DB_HOST: postgres
+      DB_USER: postgres
+      DB_CLIENT: pg
+      DB_PASSWORD: 123
+      DB_DATABASE: TestDeveloperFullStackContele
     ports:
       - 3000:3000
     depends_on:
       - postgres
-
   postgres:
     image: postgres
-    container_name: database
+    container_name: testeContele_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: TestDeveloperFullStackContele
-      PGDATA: /data/postgres
     ports:
-      - "5432:5432"
+      - "5432:5433"
     restart: unless-stopped
-
-volumes:
-  postgres:
