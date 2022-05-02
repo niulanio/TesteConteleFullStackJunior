@@ -1,0 +1,221 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api de controle de usuários",
+        "description": "Essa Api tem como objetivo realizar um CRUD de usuários",
+        "contact": {
+            "email": "niulanio.xd@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api/v1",
+            "description": "Rota base para Api de usuários"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Listar todos os usuários",
+                "description": "Essa rota será responsável por listar todos os usuários cadastrados",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schema/Users"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastrar um novo usuário",
+                "description": "Essa rota será responsável por cadastrar um usuário",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schema/Users"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "email": "niulanio.xd@gmail.com",
+                                        "password": "Senha"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid E-mail"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar todos os Usuário",
+                "description": "Essa rota será responsável por deletar todos usuário",
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Listar o usuário pelo ID",
+                "description": "Essa rota será responsável por listar o usuário de acordo com o id informado",
+                "tags": ["Users"],
+                "parameters": [
+                  {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Id do usuário",
+                    "required": true
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "OK",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "$ref": "#/components/schema/Users"
+                        }
+                      }
+                    }
+                  },
+                  "400": {
+                    "description": "Syntaxe error"
+                  },
+                  "404": {
+                    "description": "User not found"
+                  },
+                  "500": {
+                    "description": "Internal Server Error"
+                  }
+                }
+              },
+            "put": {
+                "summary": "Atualizar dados do usuário",
+                "description": "Essa rota será responsável por atualziar os dados de usuário de acordo com o id informado ",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schema/Users"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "id": 1,
+                                        "email": "niulanio.xd@gmail.com",
+                                        "password": "Senha"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar um usuário",
+                "description": "Essa rota será responsável por deletar um usuário de acordo com o id informado",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do usuário",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schema": {
+            "Users": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
