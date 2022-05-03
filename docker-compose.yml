@@ -2,7 +2,7 @@ version: "2.1"
 
 services:
   app:
-    container_name: testeContele
+    container_name: testeContele_app
     build: .
     entrypoint: ./entrypoint.sh
     environment:
