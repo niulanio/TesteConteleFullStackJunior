@@ -1,11 +1,10 @@
-version: "3.7"
+version: "2.1"
 
 services:
   app:
     container_name: testeContele
     build: .
-    entrypoint:
-      ./entrypoint.sh
+    entrypoint: ./entrypoint.sh
     environment:
       DB_HOST: postgres
       DB_USER: postgres
@@ -15,7 +14,9 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres
     container_name: testeContele_db
@@ -24,5 +25,10 @@ services:
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: TestDeveloperFullStackContele
     ports:
-      - "5432:5433"
+      - "5432:5432"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
